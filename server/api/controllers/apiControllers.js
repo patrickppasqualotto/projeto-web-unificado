@@ -215,7 +215,7 @@ exports.vagas = {
       const vagaFull = await Vaga.findByPk(vaga.id_vaga, {
         include: [
           { model: Categoria_vaga, attributes: ['id_categoria', 'nome'] },
-          { model: Usuario, as: 'publicador', attributes: ['id_usuario', 'nome', 'email'] },
+          { model: Usuario, attributes: ['id_usuario', 'nome', 'email'] },
           { model: Tags, as: 'tags', through: { attributes: [] }, attributes: ['id_tag', 'nome'] }
         ]
       });
@@ -261,7 +261,7 @@ exports.vagas = {
       const vagaFull = await Vaga.findByPk(vaga.id_vaga, {
         include: [
           { model: Categoria_vaga, attributes: ['id_categoria', 'nome'] },
-          { model: Usuario, as: 'publicador', attributes: ['id_usuario', 'nome', 'email'] },
+          { model: Usuario, attributes: ['id_usuario', 'nome', 'email'] },
           { model: Tags, as: 'tags', through: { attributes: [] }, attributes: ['id_tag', 'nome'] }
         ]
       });
@@ -321,7 +321,7 @@ exports.eventos = {
   },
 
   create: async (req, res) => {
-    const { titulo, descricao, data_inicio, data_fim, localizacao, link_inscricao, id_curso } = req.body;
+    const { titulo, descricao, data_inicio, data_fim, local_evento, link_inscricao, id_curso } = req.body;
     try {
       console.log('[API EVENTOS] POST /eventos body=', req.body);
       if (!titulo || titulo.trim().length < 3) {
@@ -339,9 +339,9 @@ exports.eventos = {
         descricao: descricao ? descricao.trim() : null,
         data_inicio,
         data_fim: data_fim || null,
-        localizacao: localizacao || null,
+        local_evento: local_evento || null,
         link_inscricao: link_inscricao || null,
-        id_usuario: req.user.id_usuario,
+        id_organizador: req.user.id_usuario,
         id_curso: id_curso || null
       });
 
@@ -360,7 +360,7 @@ exports.eventos = {
   },
 
   update: async (req, res) => {
-    const { titulo, descricao, data_inicio, data_fim, localizacao, link_inscricao, id_curso } = req.body;
+    const { titulo, descricao, data_inicio, data_fim, local_evento, link_inscricao, id_curso } = req.body;
     try {
       const evento = await Evento.findByPk(req.params.id);
       if (!evento) return res.status(404).json({ success: false, error: 'Evento não encontrado' });
@@ -370,7 +370,7 @@ exports.eventos = {
         descricao: descricao !== undefined ? (descricao ? descricao.trim() : null) : evento.descricao,
         data_inicio: data_inicio || evento.data_inicio,
         data_fim: data_fim !== undefined ? data_fim : evento.data_fim,
-        localizacao: localizacao !== undefined ? localizacao : evento.localizacao,
+        local_evento: local_evento !== undefined ? local_evento : evento.local_evento,
         link_inscricao: link_inscricao !== undefined ? link_inscricao : evento.link_inscricao,
         id_curso: id_curso !== undefined ? id_curso : evento.id_curso
       });
