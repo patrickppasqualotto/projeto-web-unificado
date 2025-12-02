@@ -1,6 +1,3 @@
-<div class="container">
-  <h1>💼 Vagas de Estágio e Emprego</h1>
-  
   <div class="container">
     <h1>💼 Vagas de Estágio e Emprego</h1>
     
@@ -24,7 +21,7 @@
                 <br>⏰ Expira em: <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
               <% } %>
               <% if (vaga.salario) { %>
-                <br>💰 Salário: R$ <%= vaga.salario.toFixed(2) %>
+                <br>💰 Salário: R$ <%= parseFloat(vaga.salario).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
               <% } %>
             </div>
             <% if (vaga.url) { %>
@@ -37,4 +34,3 @@
       <div class="empty">Nenhuma vaga disponível no momento</div>
     <% } %>
   </div>
-</div>
