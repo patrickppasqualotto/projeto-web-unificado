@@ -134,12 +134,12 @@
 
 <div class="form-container">
   <div class="form-header">
-    <h1><%= noticia ? '✏️ Editar Notícia' : '✨ Nova Notícia' %></h1>
+    <h1><%= noticia ? ' Editar Notícia' : ' Nova Notícia' %></h1>
   </div>
   
   <% if (errors && errors.length > 0) { %>
     <div class="alert alert-error">
-      <strong>⚠️ Erros no formulário:</strong>
+      <strong> Erros no formulário:</strong>
       <ul class="error-list">
         <% errors.forEach(error => { %>
           <li><%= error.msg || error.message %></li>
@@ -235,9 +235,9 @@
       
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">
-          <%= noticia ? '💾 Atualizar Notícia' : '✨ Criar Notícia' %>
+          <%= noticia ? 'Atualizar Notícia' : 'Criar Notícia' %>
         </button>
-        <a href="/noticias" class="btn btn-secondary">❌ Cancelar</a>
+        <a href="/noticias" class="btn btn-secondary">Cancelar</a>
       </div>
     </form>
   </div>

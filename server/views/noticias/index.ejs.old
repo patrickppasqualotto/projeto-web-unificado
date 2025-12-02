@@ -247,7 +247,7 @@
             <% if (noticia.imagem_url) { %>
               <img src="<%= noticia.imagem_url %>" alt="<%= noticia.titulo %>" class="news-image" onerror="this.style.display='none';">
             <% } else { %>
-              <div class="no-image">📰</div>
+              <div class="no-image"></div>
             <% } %>
             
             <div class="news-content">
@@ -261,10 +261,10 @@
                 <div class="news-excerpt"><%= noticia.conteudo.substring(0, 150) %>...</div>
                 
                 <div class="news-meta">
-                  📝 <strong><%= noticia.autor ? noticia.autor.nome : 'Desconhecido' %></strong>
-                  • 📅 <%= new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') %>
+                   <strong><%= noticia.autor ? noticia.autor.nome : 'Desconhecido' %></strong>
+                  •  <%= new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') %>
                   <% if (noticia.data_expiracao) { %>
-                    • ⏰ Expira em <%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR') %>
+                    •  Expira em <%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR') %>
                   <% } %>
                 </div>
               </div>

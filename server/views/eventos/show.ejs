@@ -196,11 +196,11 @@
       
       <!-- Seção de Data e Local -->
       <div class="detail-section">
-        <div class="location-tag">📍 <%= evento.local_evento %></div>
+        <div class="location-tag"> <%= evento.local_evento %></div>
         
         <div class="meta-row">
           <div class="meta-item">
-            <div class="detail-label">📅 Data de Início</div>
+            <div class="detail-label"> Data de Início</div>
             <div class="meta-value">
               <%= new Date(evento.data_inicio).toLocaleDateString('pt-BR', { 
                 weekday: 'long',
@@ -229,7 +229,7 @@
             </div>
           <% } else { %>
             <div class="meta-item">
-              <div class="detail-label">ℹ️ Duração</div>
+              <div class="detail-label">Duração</div>
               <div class="meta-value" style="color: #7f8c8d; font-style: italic;">Não especificada</div>
             </div>
           <% } %>
@@ -259,7 +259,7 @@
         
         <% if (evento.curso) { %>
           <div class="detail-item">
-            <div class="detail-label">🎓 Curso Relacionado</div>
+            <div class="detail-label"> Curso Relacionado</div>
             <div class="badge"><%= evento.curso.nome %></div>
           </div>
         <% } %>
@@ -268,7 +268,7 @@
       <!-- Seção de Link de Inscrição -->
       <% if (evento.link_inscricao) { %>
         <div class="detail-section">
-          <div class="detail-label">🔗 Link de Inscrição</div>
+          <div class="detail-label"> Link de Inscrição</div>
           <div class="detail-value">
             <a href="<%= evento.link_inscricao %>" target="_blank" rel="noopener noreferrer" class="link-inscricao">
               <%= evento.link_inscricao %>

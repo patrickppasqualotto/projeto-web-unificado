@@ -241,7 +241,7 @@
           <div class="opportunity-card">
             <div class="card-header">
               <% if (oportunidade.tipoOportunidade) { %>
-                <div class="card-type">🎯 <%= oportunidade.tipoOportunidade.nome %></div>
+                <div class="card-type"> <%= oportunidade.tipoOportunidade.nome %></div>
               <% } %>
               <div class="card-title"><%= oportunidade.titulo %></div>
             </div>
@@ -252,7 +252,7 @@
               <div style="flex: 1;"></div>
               
               <div class="card-meta">
-                📅 <%= new Date(oportunidade.data_publicacao).toLocaleDateString('pt-BR') %>
+                 <%= new Date(oportunidade.data_publicacao).toLocaleDateString('pt-BR') %>
               </div>
               
               <% if (oportunidade.data_prazo) { %>
@@ -263,7 +263,7 @@
                     const dias = Math.ceil((prazo - agora) / (1000 * 60 * 60 * 24));
                     const isDeadlineSoon = dias <= 7 && dias > 0;
                   %>
-                  ⏰ Prazo: 
+                   Prazo: 
                   <span class="<%= isDeadlineSoon ? 'deadline-soon' : '' %>">
                     <%= prazo.toLocaleDateString('pt-BR') %>
                     <% if (isDeadlineSoon) { %>

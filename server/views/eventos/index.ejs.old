@@ -234,16 +234,16 @@
             <div class="card-title"><%= evento.titulo %></div>
             
             <div class="card-meta">
-              📍 <span class="location-badge"><%= evento.local_evento %></span>
+               <span class="location-badge"><%= evento.local_evento %></span>
             </div>
             
             <div class="card-meta">
-              🕐 <strong>Início:</strong> <%= new Date(evento.data_inicio).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+               <strong>Início:</strong> <%= new Date(evento.data_inicio).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
             </div>
             
             <% if (evento.data_fim) { %>
               <div class="card-meta">
-                🕑 <strong>Fim:</strong> <%= new Date(evento.data_fim).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
+                 <strong>Fim:</strong> <%= new Date(evento.data_fim).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) %>
               </div>
             <% } %>
             

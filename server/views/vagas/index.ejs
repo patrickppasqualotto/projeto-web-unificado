@@ -61,6 +61,21 @@
       font-size: 24px;
     }
     
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    
+    .card-actions form {
+      flex: 0.8;
+      display: flex;
+    }
+    
+    .card-actions .btn {
+      flex: 1;
+    }
+    
     .btn {
       padding: 10px 20px;
       border-radius: 5px;
@@ -228,11 +243,11 @@
             <div class="card-title"><%= vaga.titulo %></div>
             
             <% if (vaga.Categoria_vaga) { %>
-              <div class="card-meta">📁 <%= vaga.Categoria_vaga.nome %></div>
+              <div class="card-meta"> <%= vaga.Categoria_vaga.nome %></div>
             <% } %>
             
             <% if (vaga.nome_empresa) { %>
-              <div class="card-company">🏢 <%= vaga.nome_empresa %></div>
+              <div class="card-company"> <%= vaga.nome_empresa %></div>
             <% } %>
             
             <% if (vaga.salario) { %>
@@ -240,15 +255,15 @@
             <% } %>
             
             <% if (vaga.localizacao) { %>
-              <div class="card-meta">📍 <%= vaga.localizacao %></div>
+              <div class="card-meta"> <%= vaga.localizacao %></div>
             <% } %>
             
             <% if (vaga.publicador) { %>
-              <div class="card-meta">👤 Por: <%= vaga.publicador.nome %></div>
+              <div class="card-meta"> Por: <%= vaga.publicador.nome %></div>
             <% } %>
             
             <div class="card-meta">
-              📅 Expira em: <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
+               Expira em: <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
             </div>
             
             <% if (vaga.Tags && vaga.Tags.length > 0) { %>
@@ -262,7 +277,7 @@
             <div class="card-actions">
               <a href="/vagas/<%= vaga.id_vaga %>" class="btn btn-secondary">Ver</a>
               <a href="/vagas/<%= vaga.id_vaga %>/edit" class="btn btn-secondary">Editar</a>
-              <form method="POST" action="/vagas/<%= vaga.id_vaga %>?_method=DELETE" style="display: inline;">
+              <form method="POST" action="/vagas/<%= vaga.id_vaga %>?_method=DELETE">
                 <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta vaga?');">Deletar</button>
               </form>
             </div>

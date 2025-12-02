@@ -66,7 +66,7 @@
     }
     
     .detail-header-banner::before {
-      content: '🎯';
+      content: '';
       position: absolute;
       font-size: 100px;
       opacity: 0.1;
@@ -278,27 +278,27 @@
       <div class="detail-content">
         <% if (oportunidade.data_prazo && new Date(oportunidade.data_prazo) < new Date()) { %>
           <div class="deadline-warning">
-            <div class="deadline-warning-icon">⚠️</div>
+            <div class="deadline-warning-icon"></div>
             <div>Esta oportunidade expirou em <%= new Date(oportunidade.data_prazo).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></div>
           </div>
         <% } %>
         
         <div class="meta-grid">
           <div class="meta-card">
-            <div class="meta-label">📅 Data de Publicação</div>
+            <div class="meta-label"> Data de Publicação</div>
             <div class="meta-value"><%= new Date(oportunidade.data_publicacao).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></div>
           </div>
           
           <% if (oportunidade.data_prazo) { %>
             <div class="meta-card">
-              <div class="meta-label">⏰ Prazo</div>
+              <div class="meta-label"> Prazo</div>
               <div class="meta-value"><%= new Date(oportunidade.data_prazo).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></div>
             </div>
           <% } %>
           
           <% if (oportunidade.tipoOportunidade) { %>
             <div class="meta-card">
-              <div class="meta-label">🎯 Tipo</div>
+              <div class="meta-label"> Tipo</div>
               <div class="meta-value"><%= oportunidade.tipoOportunidade.nome %></div>
             </div>
           <% } %>
@@ -314,16 +314,16 @@
             <div class="section-title">Acesso Externo</div>
             <p>Acesse mais informações através do link abaixo:</p>
             <a href="<%= oportunidade.link %>" target="_blank" rel="noopener noreferrer" class="external-link">
-              🔗 Abrir Link Externo
+               Abrir Link Externo
             </a>
           </div>
         <% } %>
         
         <div class="detail-actions">
-          <a href="/oportunidades/<%= oportunidade.id_oportunidade %>/edit" class="btn btn-primary">✏️ Editar</a>
+          <a href="/oportunidades/<%= oportunidade.id_oportunidade %>/edit" class="btn btn-primary"> Editar</a>
           
           <form method="POST" action="/oportunidades/<%= oportunidade.id_oportunidade %>?_method=DELETE" style="display: inline;">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta oportunidade?');">🗑️ Deletar</button>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta oportunidade?');"> Deletar</button>
           </form>
           
           <a href="/oportunidades" class="btn btn-secondary">← Voltar à lista</a>

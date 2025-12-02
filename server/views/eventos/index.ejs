@@ -139,10 +139,22 @@
   }
   
   .event-actions .btn {
-    flex: 1;
     text-align: center;
     padding: 8px 12px;
     font-size: 13px;
+  }
+  
+  .event-actions .btn-secondary {
+    flex: 1;
+  }
+  
+  .event-actions form {
+    flex: 0.8;
+    display: flex;
+  }
+  
+  .event-actions form .btn-danger {
+    width: 100%;
   }
   
   .empty-state {
@@ -181,7 +193,7 @@
   <% } %>
   
   <div class="page-header">
-    <h1>📅 Gerenciar Eventos</h1>
+    <h1> Gerenciar Eventos</h1>
     <a href="/eventos/new" class="btn btn-primary">+ Novo Evento</a>
   </div>
   
@@ -190,7 +202,7 @@
       <% eventos.forEach(evento => { %>
         <div class="event-card">
           <div class="event-header">
-            <div class="event-icon">🎉</div>
+            <div class="event-icon"></div>
             <div class="event-date">
               <%= new Date(evento.data_inicio).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' }) %>
             </div>
@@ -204,12 +216,12 @@
             <% } %>
             
             <div class="event-meta">
-              <div>🕐 Início: <%= new Date(evento.data_inicio).toLocaleString('pt-BR') %></div>
+              <div> Início: <%= new Date(evento.data_inicio).toLocaleString('pt-BR') %></div>
               <% if (evento.data_fim) { %>
-                <div>🕐 Fim: <%= new Date(evento.data_fim).toLocaleString('pt-BR') %></div>
+                <div> Fim: <%= new Date(evento.data_fim).toLocaleString('pt-BR') %></div>
               <% } %>
               <% if (evento.local_evento) { %>
-                <div>📍 <%= evento.local_evento %></div>
+                <div> <%= evento.local_evento %></div>
               <% } %>
               <% if (evento.link_inscricao) { %>
                 <div>🔗 <a href="<%= evento.link_inscricao %>" target="_blank">Link de inscrição</a></div>
@@ -219,8 +231,8 @@
             <div class="event-actions">
               <a href="/eventos/<%= evento.id_evento %>" class="btn btn-secondary">Ver</a>
               <a href="/eventos/<%= evento.id_evento %>/edit" class="btn btn-secondary">Editar</a>
-              <form method="POST" action="/eventos/<%= evento.id_evento %>?_method=DELETE" style="display: inline; flex: 1;">
-                <button type="submit" class="btn btn-danger" style="width: 100%;" onclick="return confirm('Tem certeza que deseja deletar este evento?');">Deletar</button>
+              <form method="POST" action="/eventos/<%= evento.id_evento %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar este evento?');">Deletar</button>
               </form>
             </div>
           </div>
@@ -229,7 +241,7 @@
     </div>
   <% } else { %>
     <div class="empty-state">
-      <p>📭 Nenhum evento encontrado.</p>
+      <p> Nenhum evento encontrado.</p>
       <a href="/eventos/new" class="btn btn-primary">Criar primeiro evento</a>
     </div>
   <% } %>

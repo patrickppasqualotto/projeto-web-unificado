@@ -11,20 +11,20 @@
 
 <div class="container" style="max-width: 900px;">
   <div class="article">
-    <h1>📅 <%= evento.titulo %></h1>
+    <h1> <%= evento.titulo %></h1>
       
       <div class="info-grid">
         <div class="info-item">
-          <strong>📍 Local</strong>
+          <strong> Local</strong>
           <%= evento.local_evento || 'A definir' %>
         </div>
         <div class="info-item">
-          <strong>📅 Data de Início</strong>
+          <strong> Data de Início</strong>
           <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'A definir' %>
         </div>
         <% if (evento.data_fim) { %>
           <div class="info-item">
-            <strong>🏁 Data de Término</strong>
+            <strong> Data de Término</strong>
             <%= new Date(evento.data_fim).toLocaleDateString('pt-BR') %>
           </div>
         <% } %>

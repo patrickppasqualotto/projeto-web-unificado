@@ -136,7 +136,7 @@ exports.detalheEvento = async (req, res) => {
  */
 exports.listarOportunidades = async (req, res) => {
   try {
-    const oportunidades = await oportunidadesService.listar();
+    const oportunidades = await oportunidadesService.listarComRelacionamentos();
     res.render('public/oportunidades', {
       oportunidades,
       user: req.session?.user || null

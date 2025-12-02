@@ -273,13 +273,13 @@
           onerror="this.style.display='none';"
         >
       <% } else { %>
-        <div class="detail-hero-placeholder">📰</div>
+        <div class="detail-hero-placeholder"></div>
       <% } %>
       
       <div class="detail-content">
         <% if (noticia.data_expiracao && new Date(noticia.data_expiracao) < new Date()) { %>
           <div class="expiration-alert">
-            <div class="expiration-alert-icon">⚠️</div>
+            <div class="expiration-alert-icon"></div>
             <div>Esta notícia expirou em <%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR', { hour: '2-digit', minute: '2-digit' }) %></div>
           </div>
         <% } %>
@@ -293,13 +293,13 @@
           
           <div class="detail-meta">
             <div class="meta-item">
-              <span class="meta-label">📅 Publicada em:</span>
+              <span class="meta-label"> Publicada em:</span>
               <span><%= new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></span>
             </div>
             
             <% if (noticia.data_expiracao) { %>
               <div class="meta-item">
-                <span class="meta-label">⏰ Expira em:</span>
+                <span class="meta-label"> Expira em:</span>
                 <span><%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) %></span>
               </div>
             <% } %>
@@ -314,15 +314,15 @@
         <div class="section">
           <div class="section-title">Autor</div>
           <div class="author-card">
-            <div class="author-name">✍️ <%= noticia.autor ? noticia.autor.nome : 'Desconhecido' %></div>
+            <div class="author-name"> <%= noticia.autor ? noticia.autor.nome : 'Desconhecido' %></div>
             <% if (noticia.autor && noticia.autor.email) { %>
-              <div class="author-text">📧 <%= noticia.autor.email %></div>
+              <div class="author-text"> <%= noticia.autor.email %></div>
             <% } %>
           </div>
         </div>
         
         <div class="detail-actions">
-          <a href="/noticias/<%= noticia.id_noticia %>/edit" class="btn btn-primary">✏️ Editar</a>
+          <a href="/noticias/<%= noticia.id_noticia %>/edit" class="btn btn-primary"> Editar</a>
           
           <form method="POST" action="/noticias/<%= noticia.id_noticia %>?_method=DELETE" style="display: inline;">
             <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta notícia?');">🗑️ Deletar</button>

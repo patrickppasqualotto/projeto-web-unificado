@@ -287,11 +287,56 @@
         <div class="form-hint">Opcional - A vaga não será exibida após esta data</div>
       </div>
       
+      <div class="form-group">
+        <label for="id_categoria">
+          Categoria <span class="required">*</span>
+        </label>
+        <select 
+          id="id_categoria" 
+          name="id_categoria" 
+          class="form-control"
+          required
+        >
+          <option value="">Selecione uma categoria</option>
+          <% if (categorias && categorias.length > 0) { %>
+            <% categorias.forEach(categoria => { %>
+              <option value="<%= categoria.id_categoria %>" <%= (vaga && vaga.id_categoria === categoria.id_categoria) ? 'selected' : '' %>>
+                <%= categoria.nome %>
+              </option>
+            <% }); %>
+          <% } %>
+        </select>
+        <div class="form-hint">Escolha a categoria da vaga</div>
+      </div>
+      
+      <div class="form-group">
+        <label>Tags</label>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+          <% if (tags && tags.length > 0) { %>
+            <% tags.forEach(tag => { %>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                <input 
+                  type="checkbox" 
+                  name="tags[]" 
+                  value="<%= tag.id_tag %>"
+                  <%= (vaga && vaga.Tags && vaga.Tags.find(t => t.id_tag === tag.id_tag)) ? 'checked' : '' %>
+                  style="cursor: pointer;"
+                >
+                <span><%= tag.nome %></span>
+              </label>
+            <% }); %>
+          <% } else { %>
+            <p style="color: #7f8c8d; margin: 0;">Nenhuma tag disponível</p>
+          <% } %>
+        </div>
+        <div class="form-hint">Selecione as tags relacionadas à vaga</div>
+      </div>
+      
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">
-          <%= vaga ? '💾 Atualizar Vaga' : '💼 Criar Vaga' %>
+          <%= vaga ? 'Atualizar Vaga' : 'Criar Vaga' %>
         </button>
-        <a href="/vagas" class="btn btn-secondary">❌ Cancelar</a>
+        <a href="/vagas" class="btn btn-secondary">Cancelar</a>
       </div>
     </form>
   </div>

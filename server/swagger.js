@@ -7,8 +7,8 @@ const options = {
       title: 'API Portal Acadêmico UTFPR',
       version: '1.0.0',
       description: `
-        - **Admin:** admin@test.com / admi!062025F
-        - **Usuário:** joao@universidade.edu.br / user123
+        - **Admin:** admin@test.com / admi!062025
+        - **Usuário:** usuario@test.com / user123
       `,
       contact: {
         name: 'Suporte API',

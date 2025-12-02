@@ -14,9 +14,9 @@
         <p class="subtitle"><%= noticia.subtitulo %></p>
       <% } %>
       <div class="meta">
-        📅 Publicado em <%= noticia.data_publicacao ? new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+         Publicado em <%= noticia.data_publicacao ? new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
         <% if (noticia.data_expiracao) { %>
-          | ⏰ Expira em <%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR') %>
+          |  Expira em <%= new Date(noticia.data_expiracao).toLocaleDateString('pt-BR') %>
         <% } %>
       </div>
       <% if (noticia.imagem_url) { %>
