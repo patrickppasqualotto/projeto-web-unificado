@@ -2,44 +2,62 @@
   .hero {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 80px 20px;
+    padding: 100px 20px;
     text-align: center;
-    margin: -30px -20px 40px -20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin: -20px -20px 50px -20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    border-bottom: 4px solid #764ba2;
   }
   
   .hero h1 {
     color: white;
-    font-size: 3rem;
+    font-size: 3.2rem;
     margin-bottom: 20px;
     font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
     letter-spacing: -1px;
+    line-height: 1.2;
   }
   
   .hero p {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 300;
     line-height: 1.6;
     opacity: 0.95;
+    letter-spacing: 0.3px;
   }
   
   .section {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
   }
   
   .section h2 {
-    color: #2c3e50;
-    margin-bottom: 25px;
+    color: #1a2332;
+    margin-bottom: 30px;
     font-size: 2rem;
     border-bottom: 3px solid #3498db;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    text-align: left;
+  }
+  
+  .quick-link {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card-icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    opacity: 0.8;
   }
 </style>
 
 <div class="hero">
   <div class="container">
-    <h1>🎓 Portal Acadêmico UTFPR</h1>
+    <h1>Portal Acadêmico UTFPR</h1>
     <p>Bem-vindo ao portal de informações, notícias, eventos e oportunidades</p>
   </div>
 </div>
@@ -48,7 +66,7 @@
 
     <!-- Seção de Notícias Recentes -->
     <div class="section">
-      <h2>📰 Notícias Recentes</h2>
+      <h2>Notícias Recentes</h2>
       <% if (noticias && noticias.length > 0) { %>
         <div class="grid">
           <% noticias.forEach(noticia => { %>
@@ -58,7 +76,7 @@
                 <p><%= noticia.subtitulo %></p>
               <% } %>
               <div class="meta">
-                📅 <%= noticia.data_publicacao ? new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+                <%= noticia.data_publicacao ? new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
               </div>
               <a href="/public/noticias/<%= noticia.id_noticia %>" class="btn">Ler mais</a>
             </div>
@@ -73,7 +91,7 @@
     
     <!-- Seção de Eventos Próximos -->
     <div class="section">
-      <h2>📅 Próximos Eventos</h2>
+      <h2>Próximos Eventos</h2>
       <% if (eventos && eventos.length > 0) { %>
         <div class="grid">
           <% eventos.forEach(evento => { %>
@@ -83,8 +101,8 @@
                 <p><%= evento.descricao.substring(0, 150) %><%= evento.descricao.length > 150 ? '...' : '' %></p>
               <% } %>
               <div class="meta">
-                📍 <%= evento.local_evento || 'Local a definir' %><br>
-                📅 <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'Data a definir' %>
+                <strong>Local:</strong> <%= evento.local_evento || 'Local a definir' %><br>
+                <strong>Data:</strong> <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'Data a definir' %>
               </div>
               <a href="/public/eventos/<%= evento.id_evento %>" class="btn">Ver detalhes</a>
             </div>
@@ -99,20 +117,20 @@
     
     <!-- Links Rápidos -->
     <div class="section">
-      <h2>🔗 Acesso Rápido</h2>
+      <h2>Acesso Rápido</h2>
       <div class="grid">
-        <div class="card">
-          <h3>🎓 Oportunidades Acadêmicas</h3>
+        <div class="card quick-link">
+          <h3>Oportunidades Acadêmicas</h3>
           <p>Bolsas, programas de pesquisa e extensão</p>
           <a href="/public/oportunidades" class="btn">Explorar</a>
         </div>
-        <div class="card">
-          <h3>💼 Vagas de Estágio</h3>
+        <div class="card quick-link">
+          <h3>Vagas de Estágio</h3>
           <p>Oportunidades de estágio e emprego</p>
           <a href="/public/vagas" class="btn">Ver vagas</a>
         </div>
-        <div class="card">
-          <h3>ℹ️ Informações</h3>
+        <div class="card quick-link">
+          <h3>Informações</h3>
           <p>Contatos, horários e informações gerais</p>
           <a href="/public/informacoes" class="btn">Saiba mais</a>
         </div>

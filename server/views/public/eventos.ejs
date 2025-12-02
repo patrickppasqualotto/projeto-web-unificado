@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>📅 Eventos</h1>
+  <h1>Eventos</h1>
   
   <% if (eventos && eventos.length > 0) { %>
     <div class="grid">
@@ -10,10 +10,10 @@
             <p><%= evento.descricao.substring(0, 200) %><%= evento.descricao.length > 200 ? '...' : '' %></p>
           <% } %>
           <div class="meta">
-            📍 <%= evento.local_evento || 'Local a definir' %><br>
-            📅 Início: <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'A definir' %>
+            <strong>Local:</strong> <%= evento.local_evento || 'Local a definir' %><br>
+            <strong>Início:</strong> <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'A definir' %>
             <% if (evento.data_fim) { %>
-              <br>🏁 Fim: <%= new Date(evento.data_fim).toLocaleDateString('pt-BR') %>
+              <br><strong>Fim:</strong> <%= new Date(evento.data_fim).toLocaleDateString('pt-BR') %>
             <% } %>
           </div>
           <a href="/public/eventos/<%= evento.id_evento %>" class="btn">Ver detalhes</a>

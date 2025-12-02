@@ -6,7 +6,7 @@
 </style>
   
 <div class="container">
-  <h1>ℹ️ Informações da Universidade</h1>
+  <h1>Informações da Universidade</h1>
   
   <% if (informacoes && informacoes.length > 0) { %>
     <% informacoes.forEach(info => { %>
@@ -19,15 +19,15 @@
         <% } %>
         <% if (info.endereco || info.telefone || info.email) { %>
           <div class="contact">
-            <strong>📞 Contato:</strong><br>
+            <strong>Contato:</strong><br>
             <% if (info.endereco) { %>
-              📍 <strong>Endereço:</strong> <%= info.endereco %><br>
+              <strong>Endereço:</strong> <%= info.endereco %><br>
             <% } %>
             <% if (info.telefone) { %>
-              ☎️ <strong>Telefone:</strong> <%= info.telefone %><br>
+              <strong>Telefone:</strong> <%= info.telefone %><br>
             <% } %>
             <% if (info.email) { %>
-              ✉️ <strong>E-mail:</strong> <a href="mailto:<%= info.email %>"><%= info.email %></a>
+              <strong>E-mail:</strong> <a href="mailto:<%= info.email %>"><%= info.email %></a>
             <% } %>
           </div>
         <% } %>

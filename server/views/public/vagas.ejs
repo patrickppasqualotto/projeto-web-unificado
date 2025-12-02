@@ -1,5 +1,5 @@
   <div class="container">
-    <h1>💼 Vagas de Estágio e Emprego</h1>
+    <h1>Vagas de Estágio e Emprego</h1>
     
     <% if (vagas && vagas.length > 0) { %>
       <div class="grid">
@@ -10,18 +10,18 @@
               <p><strong>Empresa:</strong> <%= vaga.nome_empresa %></p>
             <% } %>
             <% if (vaga.localizacao) { %>
-              <p>📍 <%= vaga.localizacao %></p>
+              <p><strong>Local:</strong> <%= vaga.localizacao %></p>
             <% } %>
             <% if (vaga.descricao) { %>
               <p><%= vaga.descricao.substring(0, 150) %><%= vaga.descricao.length > 150 ? '...' : '' %></p>
             <% } %>
             <div class="meta">
-              📅 Publicação: <%= vaga.data_publicacao ? new Date(vaga.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+              <strong>Publicado em:</strong> <%= vaga.data_publicacao ? new Date(vaga.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
               <% if (vaga.data_expiracao) { %>
-                <br>⏰ Expira em: <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
+                <br><strong>Expira em:</strong> <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
               <% } %>
               <% if (vaga.salario) { %>
-                <br>💰 Salário: R$ <%= parseFloat(vaga.salario).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
+                <br><strong>Salário:</strong> R$ <%= parseFloat(vaga.salario).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) %>
               <% } %>
             </div>
             <% if (vaga.url) { %>
