@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    
+    .nav-links {
+      margin-top: 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .form-container {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 700px;
+    }
+    
+    .form-container h2 {
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="date"]:focus,
+    input[type="datetime-local"]:focus,
+    input[type="number"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .error-list {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .error-list ul {
+      margin: 8px 0 0 20px;
+    }
+    
+    .error-list li {
+      margin: 5px 0;
+    }
+    
+    .form-help {
+      font-size: 12px;
+      color: #7f8c8d;
+      margin-top: 4px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3498db;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/admin-nav') %>
+  
+  <div class="container">
+    <div class="form-container">
+      <h2><%= title %></h2>
+      
+      <% if (errors && errors.length > 0) { %>
+        <div class="error-list">
+          <strong>Erros encontrados:</strong>
+          <ul>
+            <% errors.forEach(error => { %>
+              <li><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+      
+      <form method="POST" action="<%= action %>">
+        <% if (method === 'PUT') { %>
+          <input type="hidden" name="_method" value="PUT">
+        <% } %>
+        
+        <div class="form-group">
+          <label for="titulo">Título do Evento <span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="titulo" 
+            name="titulo" 
+            value="<%= evento ? evento.titulo : '' %>"
+            placeholder="Ex: Workshop de Node.js"
+            required
+          >
+          <div class="form-help">5 a 200 caracteres</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="descricao">Descrição <span style="color: red;">*</span></label>
+          <textarea 
+            id="descricao" 
+            name="descricao"
+            placeholder="Descrição completa do evento"
+            required
+          ><%= evento && evento.descricao ? evento.descricao : '' %></textarea>
+          <div class="form-help">10 a 2000 caracteres</div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="data_inicio">Data de Início <span style="color: red;">*</span></label>
+            <input 
+              type="datetime-local" 
+              id="data_inicio" 
+              name="data_inicio"
+              value="<%= evento && evento.data_inicio ? new Date(evento.data_inicio).toISOString().slice(0, 16) : '' %>"
+              required
+            >
+            <div class="form-help">Deve ser no futuro</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="data_fim">Data de Fim</label>
+            <input 
+              type="datetime-local" 
+              id="data_fim" 
+              name="data_fim"
+              value="<%= evento && evento.data_fim ? new Date(evento.data_fim).toISOString().slice(0, 16) : '' %>"
+            >
+            <div class="form-help">Opcional, deve ser após a data de início</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="local_evento">Local do Evento <span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="local_evento" 
+            name="local_evento" 
+            value="<%= evento ? evento.local_evento : '' %>"
+            placeholder="Ex: Auditório Principal, Campus Curitiba"
+            required
+          >
+          <div class="form-help">5 a 200 caracteres</div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_curso">Curso</label>
+            <select id="id_curso" name="id_curso">
+              <option value="">-- Nenhum curso --</option>
+              <% cursos.forEach(curso => { %>
+                <option value="<%= curso.id_curso %>" <%= evento && evento.id_curso === curso.id_curso ? 'selected' : '' %>>
+                  <%= curso.nome %>
+                </option>
+              <% }); %>
+            </select>
+            <div class="form-help">Opcional</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="link_inscricao">Link de Inscrição</label>
+            <input 
+              type="text" 
+              id="link_inscricao" 
+              name="link_inscricao" 
+              value="<%= evento && evento.link_inscricao ? evento.link_inscricao : '' %>"
+              placeholder="https://example.com/inscricao"
+            >
+            <div class="form-help">URL completa com http(s)://</div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <%= evento ? 'Atualizar Evento' : 'Criar Evento' %>
+          </button>
+          <a href="/eventos" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

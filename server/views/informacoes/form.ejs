@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif;background:#f5f7fa;color:#333}
+    .container{max-width:800px;margin:20px auto;padding:20px}
+    .card{background:white;padding:20px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+    label{display:block;margin-bottom:6px;font-weight:600}
+    input,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;margin-bottom:12px}
+    .btn{padding:10px 14px;border-radius:6px;background:#3498db;color:white;text-decoration:none;border:none}
+    .btn.secondary{background:#95a5a6}
+    .errors{background:#f8d7da;color:#721c24;padding:10px;border-radius:6px;margin-bottom:12px}
+  </style>
+</head>
+<body>
+  <%- include('../partials/admin-nav') %>
+  
+  <div class="container">
+    <div class="card">
+      <h2><%= title %></h2>
+
+      <% if (errors && errors.length>0) { %>
+        <div class="errors">
+          <ul>
+            <% errors.forEach(e=>{ %>
+              <li><%= e.msg %></li>
+            <% }) %>
+          </ul>
+        </div>
+      <% } %>
+
+      <form method="POST" action="<%= isEdit ? `/informacoes/${informacao.id_informacoes}?_method=PUT` : '/informacoes' %>">
+        <label for="chave">Chave *</label>
+        <input id="chave" name="chave" value="<%= informacao ? informacao.chave || '' : '' %>" required />
+
+        <label for="titulo">Título *</label>
+        <input id="titulo" name="titulo" value="<%= informacao ? informacao.titulo || '' : '' %>" required />
+
+        <label for="descricao">Descrição *</label>
+        <textarea id="descricao" name="descricao" rows="6" required><%= informacao ? informacao.descricao || '' : '' %></textarea>
+
+        <div style="display:flex;gap:8px">
+          <button type="submit" class="btn"><%= isEdit ? 'Atualizar' : 'Criar' %></button>
+          <a href="/informacoes" class="btn secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

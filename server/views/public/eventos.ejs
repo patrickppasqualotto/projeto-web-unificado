@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>📅 Eventos</h1>
+  
+  <div class="container">
+    <h1>📅 Eventos</h1>
+    
+    <% if (eventos && eventos.length > 0) { %>
+      <div class="grid">
+        <% eventos.forEach(evento => { %>
+          <div class="card">
+            <h3><%= evento.titulo %></h3>
+            <% if (evento.descricao) { %>
+              <p><%= evento.descricao.substring(0, 200) %><%= evento.descricao.length > 200 ? '...' : '' %></p>
+            <% } %>
+            <div class="meta">
+              📍 <%= evento.local_evento || 'Local a definir' %><br>
+              📅 Início: <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'A definir' %>
+              <% if (evento.data_fim) { %>
+                <br>🏁 Fim: <%= new Date(evento.data_fim).toLocaleDateString('pt-BR') %>
+              <% } %>
+            </div>
+            <a href="/public/eventos/<%= evento.id_evento %>" class="btn">Ver detalhes</a>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty">Nenhum evento cadastrado no momento</div>
+    <% } %>
+  </div>
+</div>

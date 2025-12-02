@@ -1,0 +1,215 @@
+<style>
+  nav {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    margin-bottom: 30px;
+  }
+  
+  nav .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60px;
+  }
+  
+  nav .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  nav .brand:hover {
+    color: #3498db;
+  }
+  
+  nav .nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  nav .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  nav .nav-links a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+  }
+  
+  nav .dropdown {
+    position: relative;
+  }
+  
+  nav .dropdown > a {
+    cursor: pointer;
+  }
+  
+  nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1000;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    overflow: hidden;
+  }
+  
+  nav .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  nav .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  
+  nav .dropdown-content a:hover {
+    background: #f1f1f1;
+    transform: none;
+  }
+  
+  nav .user-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  nav .badge-admin {
+    background: #e74c3c;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  nav .badge-user {
+    background: #27ae60;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  @media (max-width: 768px) {
+    nav .container {
+      flex-direction: column;
+      padding: 10px 20px;
+    }
+    
+    nav .nav-links {
+      margin-top: 10px;
+    }
+    
+    nav .brand {
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<nav>
+  <div class="container">
+    <a href="/public/home" class="brand">
+      <span>🎓</span>
+      <span>Portal UTFPR</span>
+    </a>
+    
+    <ul class="nav-links">
+      <li><a href="/public/home">🏠 Home</a></li>
+      <li><a href="/public/noticias">📰 Notícias</a></li>
+      <li><a href="/public/eventos">📅 Eventos</a></li>
+      <li><a href="/public/vagas">💼 Vagas</a></li>
+      <li><a href="/public/oportunidades">🎓 Oportunidades</a></li>
+      <li><a href="/public/informacoes">ℹ️ Informações</a></li>
+      
+      <% if (locals.user) { %>
+        <!-- Usuário logado -->
+        <% if (user.id_perfil === 2) { %>
+          <!-- Administrador - mostra dropdown com painel admin -->
+          <li class="dropdown">
+            <a>
+              <span>👤</span>
+              <span><%= user.nome %></span>
+              <span class="badge-admin">Admin</span>
+              <span>▼</span>
+            </a>
+            <div class="dropdown-content">
+              <a href="/noticias">📰 Gerenciar Notícias</a>
+              <a href="/eventos">📅 Gerenciar Eventos</a>
+              <a href="/vagas">💼 Gerenciar Vagas</a>
+              <a href="/oportunidades">🎓 Gerenciar Oportunidades</a>
+              <a href="/informacoes">ℹ️ Gerenciar Informações</a>
+              <a href="/tags">🏷️ Gerenciar Tags</a>
+              <a href="/categoria-vaga">📁 Categorias de Vagas</a>
+              <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
+              <a href="/web/logout" style="color: #e74c3c; font-weight: bold;">🚪 Sair</a>
+            </div>
+          </li>
+        <% } else { %>
+          <!-- Usuário comum - sem painel admin -->
+          <li class="dropdown">
+            <a>
+              <span>👤</span>
+              <span><%= user.nome %></span>
+              <span class="badge-user">Usuário</span>
+              <span>▼</span>
+            </a>
+            <div class="dropdown-content">
+              <a href="/web/logout" style="color: #e74c3c; font-weight: bold;">🚪 Sair</a>
+            </div>
+          </li>
+        <% } %>
+      <% } else { %>
+        <!-- Visitante não logado -->
+        <li><a href="/web/login" class="btn" style="background: #3498db; margin-left: 10px;">🔐 Login</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
+
+<% if (locals.messages) { %>
+  <div class="container">
+    <% if (messages.success) { %>
+      <div class="alert alert-success">
+        ✓ <%= messages.success %>
+      </div>
+    <% } %>
+    <% if (messages.error) { %>
+      <div class="alert alert-error">
+        ✗ <%= messages.error %>
+      </div>
+    <% } %>
+  </div>
+<% } %>

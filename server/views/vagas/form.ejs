@@ -1,0 +1,298 @@
+<style>
+  .form-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .form-header {
+    margin-bottom: 30px;
+  }
+  
+  .form-header h1 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .form-card {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 15px;
+  }
+  
+  .form-group label .required {
+    color: #dc3545;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e8ed;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .form-control.error {
+    border-color: #dc3545;
+  }
+  
+  textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .form-hint {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 5px;
+  }
+  
+  .form-error {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #e1e8ed;
+  }
+  
+  .btn {
+    padding: 12px 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  
+  .btn-primary {
+    background: #667eea;
+    color: white;
+    flex: 1;
+  }
+  
+  .btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  }
+  
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+    flex: 1;
+  }
+  
+  .btn-secondary:hover {
+    background: #5a6268;
+  }
+  
+  .alert {
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+  }
+  
+  .alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .error-list {
+    margin: 10px 0 0 20px;
+  }
+
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="form-container">
+  <div class="form-header">
+    <h1><%= vaga ? '✏️ Editar Vaga' : '💼 Nova Vaga' %></h1>
+  </div>
+  
+  <% if (errors && errors.length > 0) { %>
+    <div class="alert alert-error">
+      <strong>⚠️ Erros no formulário:</strong>
+      <ul class="error-list">
+        <% errors.forEach(error => { %>
+          <li><%= error.msg || error.message %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+  
+  <div class="form-card">
+    <form method="POST" action="<%= action %>">
+      <% if (method === 'PUT') { %>
+        <input type="hidden" name="_method" value="PUT">
+      <% } %>
+      
+      <div class="form-group">
+        <label for="titulo">
+          Título da Vaga <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="titulo" 
+          name="titulo" 
+          class="form-control <%= errors.find(e => e.path === 'titulo') ? 'error' : '' %>"
+          value="<%= vaga ? vaga.titulo : '' %>"
+          required
+          placeholder="Ex: Estágio em Desenvolvimento Web"
+        >
+        <% if (errors.find(e => e.path === 'titulo')) { %>
+          <div class="form-error"><%= errors.find(e => e.path === 'titulo').msg %></div>
+        <% } %>
+      </div>
+      
+      <div class="form-group">
+        <label for="nome_empresa">
+          Nome da Empresa
+        </label>
+        <input 
+          type="text" 
+          id="nome_empresa" 
+          name="nome_empresa" 
+          class="form-control"
+          value="<%= vaga ? (vaga.nome_empresa || '') : '' %>"
+          placeholder="Ex: Empresa XYZ Tecnologia"
+        >
+        <div class="form-hint">Opcional</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="descricao">
+          Descrição
+        </label>
+        <textarea 
+          id="descricao" 
+          name="descricao" 
+          class="form-control"
+          rows="5"
+          placeholder="Descreva a vaga, responsabilidades e benefícios..."
+        ><%= vaga ? (vaga.descricao || '') : '' %></textarea>
+        <div class="form-hint">Opcional</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="requisitos">
+          Requisitos
+        </label>
+        <textarea 
+          id="requisitos" 
+          name="requisitos" 
+          class="form-control"
+          rows="4"
+          placeholder="Liste os requisitos e qualificações necessárias..."
+        ><%= vaga ? (vaga.requisitos || '') : '' %></textarea>
+        <div class="form-hint">Opcional</div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="localizacao">
+            Localização
+          </label>
+          <input 
+            type="text" 
+            id="localizacao" 
+            name="localizacao" 
+            class="form-control"
+            value="<%= vaga ? (vaga.localizacao || '') : '' %>"
+            placeholder="Ex: Curitiba-PR"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="salario">
+            Salário (R$)
+          </label>
+          <input 
+            type="number" 
+            id="salario" 
+            name="salario" 
+            class="form-control"
+            value="<%= vaga ? (vaga.salario || '') : '' %>"
+            step="0.01"
+            placeholder="2000.00"
+          >
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="url">
+          Link da Vaga
+        </label>
+        <input 
+          type="url" 
+          id="url" 
+          name="url" 
+          class="form-control"
+          value="<%= vaga ? (vaga.url || '') : '' %>"
+          placeholder="https://empresa.com/vaga"
+        >
+        <div class="form-hint">Opcional - URL para candidatura</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="data_expiracao">
+          Data de Expiração
+        </label>
+        <input 
+          type="datetime-local" 
+          id="data_expiracao" 
+          name="data_expiracao" 
+          class="form-control"
+          value="<%= vaga && vaga.data_expiracao ? new Date(vaga.data_expiracao).toISOString().slice(0,16) : '' %>"
+        >
+        <div class="form-hint">Opcional - A vaga não será exibida após esta data</div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <%= vaga ? '💾 Atualizar Vaga' : '💼 Criar Vaga' %>
+        </button>
+        <a href="/vagas" class="btn btn-secondary">❌ Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>

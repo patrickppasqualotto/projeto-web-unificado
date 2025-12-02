@@ -1,0 +1,48 @@
+<style>
+  .info-card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 30px; margin-bottom: 25px; }
+  .info-card h3 { color: #2c3e50; margin-bottom: 15px; font-size: 1.6rem; }
+  .info-card p { color: #555; line-height: 1.8; margin-bottom: 12px; }
+  .info-card .contact { background: #ecf0f1; padding: 15px; border-radius: 5px; margin-top: 15px; }
+</style>
+
+<div class="container">
+  <h1>ℹ️ Informações da Universidade</h1>
+  
+  <div class="container">
+    <h1>ℹ️ Informações da Universidade</h1>
+    
+    <% if (informacoes && informacoes.length > 0) { %>
+      <% informacoes.forEach(info => { %>
+        <div class="info-card">
+          <% if (info.titulo) { %>
+            <h3><%= info.titulo %></h3>
+          <% } %>
+          <% if (info.conteudo) { %>
+            <p><%= info.conteudo %></p>
+          <% } %>
+          <% if (info.endereco || info.telefone || info.email) { %>
+            <div class="contact">
+              <strong>📞 Contato:</strong><br>
+              <% if (info.endereco) { %>
+                📍 <strong>Endereço:</strong> <%= info.endereco %><br>
+              <% } %>
+              <% if (info.telefone) { %>
+                ☎️ <strong>Telefone:</strong> <%= info.telefone %><br>
+              <% } %>
+              <% if (info.email) { %>
+                ✉️ <strong>E-mail:</strong> <a href="mailto:<%= info.email %>"><%= info.email %></a>
+              <% } %>
+            </div>
+          <% } %>
+          <% if (info.ultima_att) { %>
+            <p style="color: #95a5a6; font-size: 0.9rem; margin-top: 15px;">
+              Última atualização: <%= new Date(info.ultima_att).toLocaleDateString('pt-BR') %>
+            </p>
+          <% } %>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <div class="empty">Nenhuma informação disponível no momento</div>
+    <% } %>
+  </div>
+</div>

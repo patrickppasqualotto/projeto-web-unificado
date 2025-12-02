@@ -1,0 +1,46 @@
+<style>
+  .article { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); padding: 40px; }
+  .article h1 { font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #ecf0f1; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+  .info-item { color: #555; }
+  .info-item strong { color: #2c3e50; display: block; margin-bottom: 5px; }
+  .content { color: #555; line-height: 1.8; font-size: 1.05rem; margin-bottom: 25px; }
+  .inscricao-btn { background: #27ae60; margin-right: 10px; }
+  .inscricao-btn:hover { background: #229954; }
+</style>
+
+<div class="container" style="max-width: 900px;">
+  <div class="article">
+    <h1>📅 <%= evento.titulo %></h1>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>📍 Local</strong>
+          <%= evento.local_evento || 'A definir' %>
+        </div>
+        <div class="info-item">
+          <strong>📅 Data de Início</strong>
+          <%= evento.data_inicio ? new Date(evento.data_inicio).toLocaleDateString('pt-BR') : 'A definir' %>
+        </div>
+        <% if (evento.data_fim) { %>
+          <div class="info-item">
+            <strong>🏁 Data de Término</strong>
+            <%= new Date(evento.data_fim).toLocaleDateString('pt-BR') %>
+          </div>
+        <% } %>
+      </div>
+      
+      <% if (evento.descricao) { %>
+        <div class="content">
+          <h3>Sobre o Evento</h3>
+          <p><%= evento.descricao %></p>
+        </div>
+      <% } %>
+      
+      <% if (evento.link_inscricao) { %>
+        <a href="<%= evento.link_inscricao %>" target="_blank" class="btn inscricao-btn">Inscrever-se →</a>
+      <% } %>
+      <a href="/public/eventos" class="btn"><← Voltar para eventos</a>
+    </div>
+  </div>
+</div>

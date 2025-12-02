@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>🎓 Oportunidades Acadêmicas</h1>
+  
+  <div class="container">
+    <h1>🎓 Oportunidades Acadêmicas</h1>
+    
+    <% if (oportunidades && oportunidades.length > 0) { %>
+      <div class="grid">
+        <% oportunidades.forEach(oportunidade => { %>
+          <div class="card">
+            <h3><%= oportunidade.titulo %></h3>
+            <p><%= oportunidade.descricao.substring(0, 200) %><%= oportunidade.descricao.length > 200 ? '...' : '' %></p>
+            <div class="meta">
+              📅 Publicação: <%= oportunidade.data_publicacao ? new Date(oportunidade.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+              <% if (oportunidade.data_prazo) { %>
+                <br>⏰ Prazo: <%= new Date(oportunidade.data_prazo).toLocaleDateString('pt-BR') %>
+              <% } %>
+            </div>
+            <% if (oportunidade.link) { %>
+              <a href="<%= oportunidade.link %>" target="_blank" class="btn">Acessar →</a>
+            <% } %>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty">Nenhuma oportunidade disponível no momento</div>
+    <% } %>
+  </div>
+</div>

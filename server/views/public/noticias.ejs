@@ -1,0 +1,23 @@
+<div class="container">
+  <h1>📰 Notícias</h1>
+    
+    <% if (noticias && noticias.length > 0) { %>
+      <div class="grid">
+        <% noticias.forEach(noticia => { %>
+          <div class="card">
+            <h3><%= noticia.titulo %></h3>
+            <% if (noticia.subtitulo) { %>
+              <p><%= noticia.subtitulo %></p>
+            <% } %>
+            <div class="meta">
+              📅 <%= noticia.data_publicacao ? new Date(noticia.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+            </div>
+            <a href="/public/noticias/<%= noticia.id_noticia %>" class="btn">Ler mais</a>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty">Nenhuma notícia disponível no momento</div>
+    <% } %>
+  </div>
+</div>

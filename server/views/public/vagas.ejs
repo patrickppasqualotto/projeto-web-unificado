@@ -1,0 +1,40 @@
+<div class="container">
+  <h1>💼 Vagas de Estágio e Emprego</h1>
+  
+  <div class="container">
+    <h1>💼 Vagas de Estágio e Emprego</h1>
+    
+    <% if (vagas && vagas.length > 0) { %>
+      <div class="grid">
+        <% vagas.forEach(vaga => { %>
+          <div class="card">
+            <h3><%= vaga.titulo %></h3>
+            <% if (vaga.nome_empresa) { %>
+              <p><strong>Empresa:</strong> <%= vaga.nome_empresa %></p>
+            <% } %>
+            <% if (vaga.localizacao) { %>
+              <p>📍 <%= vaga.localizacao %></p>
+            <% } %>
+            <% if (vaga.descricao) { %>
+              <p><%= vaga.descricao.substring(0, 150) %><%= vaga.descricao.length > 150 ? '...' : '' %></p>
+            <% } %>
+            <div class="meta">
+              📅 Publicação: <%= vaga.data_publicacao ? new Date(vaga.data_publicacao).toLocaleDateString('pt-BR') : 'Data não informada' %>
+              <% if (vaga.data_expiracao) { %>
+                <br>⏰ Expira em: <%= new Date(vaga.data_expiracao).toLocaleDateString('pt-BR') %>
+              <% } %>
+              <% if (vaga.salario) { %>
+                <br>💰 Salário: R$ <%= vaga.salario.toFixed(2) %>
+              <% } %>
+            </div>
+            <% if (vaga.url) { %>
+              <a href="<%= vaga.url %>" target="_blank" class="btn">Candidatar-se →</a>
+            <% } %>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="empty">Nenhuma vaga disponível no momento</div>
+    <% } %>
+  </div>
+</div>

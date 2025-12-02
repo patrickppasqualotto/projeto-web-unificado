@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif;background:#f5f7fa;color:#333}
+    .container{max-width:1000px;margin:20px auto;padding:20px}
+    header{background:#2c3e50;color:white;padding:16px;border-radius:6px}
+    .list{margin-top:20px;background:white;padding:20px;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+    .item{padding:12px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+    .item:last-child{border-bottom:none}
+    .item .meta{color:#777;font-size:13px}
+    .btn{padding:8px 12px;border-radius:6px;text-decoration:none;background:#3498db;color:white}
+    .btn.secondary{background:#95a5a6;margin-right:8px}
+  </style>
+</head>
+<body>
+  <%- include('../partials/admin-nav') %>
+  
+  <div class="container">
+
+    <% if (session && session.message) { %>
+      <div style="margin-top:12px;padding:12px;background:#d4edda;border:1px solid #c3e6cb;border-radius:6px;color:#155724"><%= session.message.text %></div>
+      <% delete session.message; %>
+    <% } %>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+      <h2><%= title %></h2>
+      <a href="/informacoes/new" class="btn">+ Nova Informação</a>
+    </div>
+
+    <div class="list">
+      <% if (informacoes && informacoes.length>0) { %>
+        <% informacoes.forEach(info => { %>
+          <div class="item">
+            <div>
+              <div style="font-weight:600"><%= info.titulo %> <span style="color:#999;font-weight:400">(<%= info.chave %>)</span></div>
+              <div class="meta">Última atualização: <%= new Date(info.ultima_att).toLocaleString('pt-BR') %></div>
+            </div>
+            <div>
+              <a href="/informacoes/<%= info.id_informacoes %>" class="btn secondary">Ver</a>
+              <a href="/informacoes/<%= info.id_informacoes %>/edit" class="btn secondary">Editar</a>
+              <form method="POST" action="/informacoes/<%= info.id_informacoes %>?_method=DELETE" style="display:inline">
+                <button class="btn" style="background:#e74c3c;border:none;padding:8px 12px;border-radius:6px;color:white" onclick="return confirm('Deletar?')">Deletar</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <div style="padding:24px;text-align:center;color:#777">Nenhuma informação cadastrada.</div>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

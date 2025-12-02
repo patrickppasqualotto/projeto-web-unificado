@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    
+    .nav-links {
+      margin-top: 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .detail-container {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 600px;
+    }
+    
+    .detail-container h2 {
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+    
+    .detail-item {
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    
+    .detail-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+    
+    .detail-value {
+      font-size: 16px;
+      color: #555;
+    }
+    
+    .detail-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3498db;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Portal Acadêmico UTFPR</h1>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/web/dashboard">Dashboard</a>
+        <a href="/web/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="detail-container">
+      <h2><%= title %></h2>
+      
+      <div class="detail-item">
+        <div class="detail-label">ID</div>
+        <div class="detail-value"><%= tag.id_tag %></div>
+      </div>
+      
+      <div class="detail-item">
+        <div class="detail-label">Nome</div>
+        <div class="detail-value"><%= tag.nome %></div>
+      </div>
+      
+      <div class="detail-item">
+        <div class="detail-label">Criado em</div>
+        <div class="detail-value">
+          <%= tag.createdAt ? new Date(tag.createdAt).toLocaleDateString('pt-BR', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          }) : 'N/A' %>
+        </div>
+      </div>
+      
+      <div class="detail-actions">
+        <a href="/tags/<%= tag.id_tag %>/edit" class="btn btn-primary">Editar</a>
+        <form method="POST" action="/tags/<%= tag.id_tag %>?_method=DELETE" style="flex: 1; display: flex;">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta tag?');" style="width: 100%;">Deletar</button>
+        </form>
+        <a href="/tags" class="btn btn-secondary">Voltar</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

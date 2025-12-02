@@ -1,0 +1,244 @@
+<style>
+  .form-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .form-header {
+    margin-bottom: 30px;
+  }
+  
+  .form-header h1 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  .form-card {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 15px;
+  }
+  
+  .form-group label .required {
+    color: #dc3545;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e1e8ed;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #667eea;
+  }
+  
+  .form-control.error {
+    border-color: #dc3545;
+  }
+  
+  textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .form-hint {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 5px;
+  }
+  
+  .form-error {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 2px solid #e1e8ed;
+  }
+  
+  .btn {
+    padding: 12px 30px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  
+  .btn-primary {
+    background: #667eea;
+    color: white;
+    flex: 1;
+  }
+  
+  .btn-primary:hover {
+    background: #5568d3;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  }
+  
+  .btn-secondary {
+    background: #6c757d;
+    color: white;
+    flex: 1;
+  }
+  
+  .btn-secondary:hover {
+    background: #5a6268;
+  }
+  
+  .alert {
+    padding: 15px 20px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+  }
+  
+  .alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  
+  .error-list {
+    margin: 10px 0 0 20px;
+  }
+</style>
+
+<div class="form-container">
+  <div class="form-header">
+    <h1><%= noticia ? '✏️ Editar Notícia' : '✨ Nova Notícia' %></h1>
+  </div>
+  
+  <% if (errors && errors.length > 0) { %>
+    <div class="alert alert-error">
+      <strong>⚠️ Erros no formulário:</strong>
+      <ul class="error-list">
+        <% errors.forEach(error => { %>
+          <li><%= error.msg || error.message %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+  
+  <div class="form-card">
+    <form method="POST" action="<%= action %>">
+      <% if (method === 'PUT') { %>
+        <input type="hidden" name="_method" value="PUT">
+      <% } %>
+      
+      <div class="form-group">
+        <label for="titulo">
+          Título <span class="required">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="titulo" 
+          name="titulo" 
+          class="form-control <%= errors.find(e => e.path === 'titulo') ? 'error' : '' %>"
+          value="<%= noticia ? noticia.titulo : '' %>"
+          required
+          placeholder="Ex: UTFPR abre inscrições para novo curso"
+        >
+        <% if (errors.find(e => e.path === 'titulo')) { %>
+          <div class="form-error"><%= errors.find(e => e.path === 'titulo').msg %></div>
+        <% } %>
+      </div>
+      
+      <div class="form-group">
+        <label for="subtitulo">
+          Subtítulo
+        </label>
+        <input 
+          type="text" 
+          id="subtitulo" 
+          name="subtitulo" 
+          class="form-control"
+          value="<%= noticia ? (noticia.subtitulo || '') : '' %>"
+          placeholder="Breve resumo da notícia"
+        >
+        <div class="form-hint">Opcional - Aparece abaixo do título</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="conteudo">
+          Conteúdo <span class="required">*</span>
+        </label>
+        <textarea 
+          id="conteudo" 
+          name="conteudo" 
+          class="form-control <%= errors.find(e => e.path === 'conteudo') ? 'error' : '' %>"
+          required
+          rows="12"
+          placeholder="Escreva o conteúdo completo da notícia..."
+        ><%= noticia ? noticia.conteudo : '' %></textarea>
+        <% if (errors.find(e => e.path === 'conteudo')) { %>
+          <div class="form-error"><%= errors.find(e => e.path === 'conteudo').msg %></div>
+        <% } %>
+      </div>
+      
+      <div class="form-group">
+        <label for="imagem_url">
+          URL da Imagem
+        </label>
+        <input 
+          type="url" 
+          id="imagem_url" 
+          name="imagem_url" 
+          class="form-control"
+          value="<%= noticia ? (noticia.imagem_url || '') : '' %>"
+          placeholder="https://exemplo.com/imagem.jpg"
+        >
+        <div class="form-hint">Opcional - Link para imagem de destaque</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="data_expiracao">
+          Data de Expiração
+        </label>
+        <input 
+          type="datetime-local" 
+          id="data_expiracao" 
+          name="data_expiracao" 
+          class="form-control"
+          value="<%= noticia && noticia.data_expiracao ? new Date(noticia.data_expiracao).toISOString().slice(0,16) : '' %>"
+        >
+        <div class="form-hint">Opcional - A notícia não será exibida após esta data</div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">
+          <%= noticia ? '💾 Atualizar Notícia' : '✨ Criar Notícia' %>
+        </button>
+        <a href="/noticias" class="btn btn-secondary">❌ Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>

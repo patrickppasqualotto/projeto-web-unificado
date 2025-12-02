@@ -1,0 +1,9 @@
+node_modules
+# Arquivos de seed (desenvolvimento local)
+seed.js
+seed-reset.js
+.env
+package-lock.json
+scripts/set-all-passwords-plain.js
+scripts/set-passwords-unique.js
+scripts/output/user-passwords.csv

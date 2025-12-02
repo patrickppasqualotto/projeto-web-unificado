@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    
+    .nav-links {
+      margin-top: 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .form-container {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 700px;
+    }
+    
+    .form-container h2 {
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .error-list {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .error-list ul {
+      margin: 8px 0 0 20px;
+    }
+    
+    .error-list li {
+      margin: 5px 0;
+    }
+    
+    .form-help {
+      font-size: 12px;
+      color: #7f8c8d;
+      margin-top: 4px;
+    }
+    
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 10px 0;
+      border: 1px solid #ecf0f1;
+      padding: 15px;
+      border-radius: 4px;
+      background: #fafbfc;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+    
+    .checkbox-item label {
+      margin: 0;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3498db;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/admin-nav') %>
+  
+  <div class="container">
+    <div class="form-container">
+      <h2><%= title %></h2>
+      
+      <% if (errors && errors.length > 0) { %>
+        <div class="error-list">
+          <strong>Erros encontrados:</strong>
+          <ul>
+            <% errors.forEach(error => { %>
+              <li><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+      
+      <form method="POST" action="<%= action %>">
+        <% if (method === 'PUT') { %>
+          <input type="hidden" name="_method" value="PUT">
+        <% } %>
+        
+        <div class="form-group">
+          <label for="titulo">Título da Vaga <span style="color: red;">*</span></label>
+          <input 
+            type="text" 
+            id="titulo" 
+            name="titulo" 
+            value="<%= vaga ? vaga.titulo : '' %>"
+            placeholder="Ex: Desenvolvedor Full Stack"
+            required
+          >
+          <div class="form-help">5 a 200 caracteres</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="descricao">Descrição <span style="color: red;">*</span></label>
+          <textarea 
+            id="descricao" 
+            name="descricao"
+            placeholder="Descrição completa da vaga"
+            required
+          ><%= vaga && vaga.descricao ? vaga.descricao : '' %></textarea>
+          <div class="form-help">10 a 2000 caracteres</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="requisitos">Requisitos <span style="color: red;">*</span></label>
+          <textarea 
+            id="requisitos" 
+            name="requisitos"
+            placeholder="Requisitos para a posição"
+            required
+          ><%= vaga && vaga.requisitos ? vaga.requisitos : '' %></textarea>
+          <div class="form-help">10 a 2000 caracteres</div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_categoria">Categoria <span style="color: red;">*</span></label>
+            <select id="id_categoria" name="id_categoria" required>
+              <option value="">-- Selecione uma categoria --</option>
+              <% categorias.forEach(cat => { %>
+                <option value="<%= cat.id_categoria %>" <%= vaga && vaga.id_categoria === cat.id_categoria ? 'selected' : '' %>>
+                  <%= cat.nome %>
+                </option>
+              <% }); %>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="data_expiracao">Data de Expiração <span style="color: red;">*</span></label>
+            <input 
+              type="date" 
+              id="data_expiracao" 
+              name="data_expiracao"
+              value="<%= vaga && vaga.data_expiracao ? vaga.data_expiracao.toISOString().split('T')[0] : '' %>"
+              required
+            >
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome_empresa">Empresa</label>
+            <input 
+              type="text" 
+              id="nome_empresa" 
+              name="nome_empresa" 
+              value="<%= vaga && vaga.nome_empresa ? vaga.nome_empresa : '' %>"
+              placeholder="Nome da empresa"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="localizacao">Localização</label>
+            <input 
+              type="text" 
+              id="localizacao" 
+              name="localizacao" 
+              value="<%= vaga && vaga.localizacao ? vaga.localizacao : '' %>"
+              placeholder="Ex: São Paulo, SP"
+            >
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="salario">Salário (R$)</label>
+            <input 
+              type="number" 
+              id="salario" 
+              name="salario" 
+              step="0.01"
+              min="0"
+              value="<%= vaga && vaga.salario ? vaga.salario : '' %>"
+              placeholder="1500.00"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="url">URL da Vaga</label>
+            <input 
+              type="text" 
+              id="url" 
+              name="url" 
+              value="<%= vaga && vaga.url ? vaga.url : '' %>"
+              placeholder="https://exemplo.com/vaga"
+            >
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label>Tags</label>
+          <div class="checkbox-group">
+            <% tags.forEach(tag => { %>
+              <div class="checkbox-item">
+                <input 
+                  type="checkbox" 
+                  id="tag_<%= tag.id_tag %>" 
+                  name="tags" 
+                  value="<%= tag.id_tag %>"
+                  <%= selectedTags && selectedTags.includes(tag.id_tag) ? 'checked' : '' %>
+                >
+                <label for="tag_<%= tag.id_tag %>"><%= tag.nome %></label>
+              </div>
+            <% }); %>
+          </div>
+          <div class="form-help">Selecione uma ou mais tags para categorizar a vaga</div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <%= vaga ? 'Atualizar Vaga' : 'Criar Vaga' %>
+          </button>
+          <a href="/vagas" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

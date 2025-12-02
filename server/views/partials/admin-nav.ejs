@@ -1,0 +1,81 @@
+<style>
+  nav {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+  
+  nav .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  nav .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+  
+  nav .menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  nav .menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  
+  nav .menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  nav .user-info {
+    color: #ecf0f1;
+    padding: 8px 15px;
+  }
+  
+  nav .badge {
+    background: #e74c3c;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    margin-left: 5px;
+  }
+</style>
+
+<nav>
+  <div class="container">
+    <a href="/public/home" class="brand">🏠 Portal UTFPR</a>
+    
+    <ul class="menu">
+      <li><a href="/noticias">📰 Notícias</a></li>
+      <li><a href="/eventos">📅 Eventos</a></li>
+      <li><a href="/oportunidades">🎓 Oportunidades</a></li>
+      <li><a href="/vagas">💼 Vagas</a></li>
+      <li><a href="/informacoes">ℹ️ Informações</a></li>
+      
+      <% if (locals.user) { %>
+        <li class="user-info">
+          <%= user.nome %>
+          <span class="badge">Admin</span>
+        </li>
+        <li><a href="/web/logout" style="background: #e74c3c;">🚪 Sair</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

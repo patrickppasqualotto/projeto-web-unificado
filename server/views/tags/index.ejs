@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    
+    .nav-links {
+      margin-top: 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .page-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    
+    .page-title h2 {
+      font-size: 24px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3498db;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+    
+    .alert {
+      padding: 15px 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .alert.show {
+      display: block;
+    }
+    
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .table-container {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    thead {
+      background: #ecf0f1;
+      font-weight: 600;
+    }
+    
+    th {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 2px solid #bdc3c7;
+    }
+    
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    
+    tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .empty-state p {
+      margin-bottom: 20px;
+      color: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <%- include('../partials/admin-nav') %>
+  
+  <div class="container">
+    <% if (session && session.message) { %>
+      <div class="alert alert-<%= session.message.type %> show">
+        <%= session.message.text %>
+      </div>
+      <% delete session.message; %>
+    <% } %>
+    
+    <div class="page-title">
+      <h2><%= title %></h2>
+      <a href="/tags/new" class="btn btn-primary">+ Nova Tag</a>
+    </div>
+    
+    <% if (tags && tags.length > 0) { %>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tags.forEach(tag => { %>
+              <tr>
+                <td><%= tag.nome %></td>
+                <td>
+                  <div class="actions">
+                    <a href="/tags/<%= tag.id_tag %>" class="btn btn-secondary">Ver</a>
+                    <a href="/tags/<%= tag.id_tag %>/edit" class="btn btn-secondary">Editar</a>
+                    <form method="POST" action="/tags/<%= tag.id_tag %>?_method=DELETE" style="display: inline;">
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esta tag?');">Deletar</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <p>Nenhuma tag encontrada.</p>
+        <a href="/tags/new" class="btn btn-primary">Criar primeira tag</a>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

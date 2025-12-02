@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Portal Universitário",
+    "slug": "portal-universitario",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#030213"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.universidade.portal"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#030213"
+      },
+      "package": "com.universidade.portal"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

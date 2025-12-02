@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    
+    .nav-links {
+      margin-top: 15px;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-right: 20px;
+      font-size: 14px;
+    }
+    
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .form-container {
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 30px;
+      max-width: 500px;
+    }
+    
+    .form-container h2 {
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #2c3e50;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: #3498db;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .error-list {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .error-list ul {
+      margin: 8px 0 0 20px;
+    }
+    
+    .error-list li {
+      margin: 5px 0;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+    
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+    
+    .btn-primary {
+      background: #3498db;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-primary:hover {
+      background: #2980b9;
+    }
+    
+    .btn-secondary {
+      background: #95a5a6;
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-secondary:hover {
+      background: #7f8c8d;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Portal Acadêmico UTFPR</h1>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/web/dashboard">Dashboard</a>
+        <a href="/web/logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="form-container">
+      <h2><%= title %></h2>
+      
+      <% if (errors && errors.length > 0) { %>
+        <div class="error-list">
+          <strong>Erros encontrados:</strong>
+          <ul>
+            <% errors.forEach(error => { %>
+              <li><%= error.msg %></li>
+            <% }); %>
+          </ul>
+        </div>
+      <% } %>
+      
+      <form method="POST" action="<%= action %>">
+        <% if (method === 'PUT') { %>
+          <input type="hidden" name="_method" value="PUT">
+        <% } %>
+        
+        <div class="form-group">
+          <label for="nome">Nome da Tag</label>
+          <input 
+            type="text" 
+            id="nome" 
+            name="nome" 
+            value="<%= tag ? tag.nome : '' %>"
+            placeholder="Ex: JavaScript, Python, Web"
+            required
+          >
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">
+            <%= tag ? 'Atualizar Tag' : 'Criar Tag' %>
+          </button>
+          <a href="/tags" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

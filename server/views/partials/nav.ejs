@@ -1,0 +1,138 @@
+<style>
+  nav {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  nav .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  nav .brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+  
+  nav .menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  nav .menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  
+  nav .menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  nav .user-info {
+    color: #ecf0f1;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  nav .badge {
+    background: #27ae60;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    margin-left: 5px;
+  }
+  
+  nav .badge.admin {
+    background: #e74c3c;
+  }
+  
+  nav .dropdown {
+    position: relative;
+  }
+  
+  nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1000;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+  }
+  
+  nav .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  nav .dropdown-content a {
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+    text-decoration: none;
+  }
+  
+  nav .dropdown-content a:hover {
+    background: #f1f1f1;
+  }
+</style>
+
+<nav>
+  <div class="container">
+    <a href="/public/home" class="brand">Portal UTFPR</a>
+    
+    <ul class="menu">
+      <li><a href="/public/home">Início</a></li>
+      <li><a href="/public/noticias">Notícias</a></li>
+      <li><a href="/public/eventos">Eventos</a></li>
+      <li><a href="/public/oportunidades">Oportunidades</a></li>
+      <li><a href="/public/vagas">Vagas</a></li>
+      <li><a href="/public/informacoes">Informações</a></li>
+      
+      <% if (locals.user) { %>
+        <!-- Usuário logado -->
+        <li class="dropdown">
+          <span class="user-info">
+            <%= user.nome %>
+            <span class="badge <%= user.id_perfil === 2 ? 'admin' : '' %>">
+              <%= user.profileName || 'Usuário' %>
+            </span>
+          </span>
+          <div class="dropdown-content">
+            <% if (user.id_perfil === 2) { %>
+              <!-- Menu Admin -->
+              <a href="/noticias">📰 Notícias</a>
+              <a href="/eventos">📅 Eventos</a>
+              <a href="/oportunidades">🎓 Oportunidades</a>
+              <a href="/vagas">💼 Vagas</a>
+              <a href="/informacoes">ℹ️ Informações</a>
+              <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
+            <% } %>
+            <a href="/web/logout">🚪 Sair</a>
+          </div>
+        </li>
+      <% } else { %>
+        <!-- Não logado -->
+        <li><a href="/web/login" style="background: #27ae60; font-weight: bold;">🔑 Login</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>
