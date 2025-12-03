@@ -39,3 +39,4 @@ netsh advfirewall firewall add rule name="Node.js Server Port 4000" dir=in actio
 ## após isso npm start ele vai iniciar o servidor
 
 ## sofremos um pouco na questão da definição de rotas então acaba tendo que usar bastante o retroceder
+
